@@ -1,0 +1,29 @@
+{% extends "AppTransporte/padre.html" %}
+ 
+{% load static %}
+
+{% block contenido2 %}
+
+<h1 class="mb-1">Choferes</h1>
+
+{% endblock %}
+
+{% block contenido %}
+
+
+    <body>
+
+        <h1>Detalles del chofer</h1>
+    
+        <p>Nombre del Chofer: <i>{{ chofer.nombre }}</i></p>
+        <p>Apellido del Chofer: <i>{{ chofer.apellido }}</i></p>
+        <p>Numero de Documento: <i>{{ chofer.numeroDeDocumento }}</i></p>
+        <p>Numero de licencia: <i>{{ chofer.numeroDeLicencia }}</i></p>
+        <p>
+            <a href="{% url 'List' %}">Regresar</a>
+        </p>
+
+        
+    </body>
+
+{% endblock %}

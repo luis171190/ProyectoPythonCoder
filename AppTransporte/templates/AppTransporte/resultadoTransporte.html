@@ -1,0 +1,35 @@
+{% extends "AppTransporte/padre.html" %}
+ 
+{% load static %}
+
+{% block contenido2 %}
+<h1 class="mb-1">!!!! BUSQUEDA DE TRANSPORTES!!!!</h1>
+{% endblock %}
+
+{% block contenido %}
+
+    <h3>estamos buscando</h3>
+
+    {% if TRANSPORTE %}
+
+      <ul>
+          {% for transporte in transporte %}
+
+          <li>{{transporte.tipo}}</li>
+          <li>{{transporte.empresa}}</li>
+          <li>{{transporte.capacidad}}</li>
+          <li>{{transporte.patente}}</li>
+
+          {% endfor %}
+      </ul>
+      {% else %}
+      <p>no hay datos con esta descripcion</p>
+ 
+     {% endif %}  
+     
+     <p stayle="color: red;">{{respuesta}}</p>
+
+  
+
+
+{% endblock %}

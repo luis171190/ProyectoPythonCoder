@@ -1,0 +1,34 @@
+{% extends "AppTransporte/padre.html" %}
+ 
+{% load static %}
+
+{% block contenido2 %}
+<h1 class="mb-1">!!!! BUSQUEDA DE TERMINALES!!!!</h1>
+{% endblock %}
+
+{% block contenido %}
+
+    <h3>estamos buscando</h3>
+
+    {% if terminal %}
+
+      <ul>
+          {% for terminal in terminal %}
+
+          <li>{{terminal.nombre}}</li>
+          <li>{{terminal.ubicacion}}</li>
+         
+
+          {% endfor %}
+      </ul>
+      {% else %}
+      <p>no hay datos con esta descripcion</p>
+ 
+     {% endif %}  
+     
+     <p stayle="color: red;">{{respuesta}}</p>
+
+  
+
+
+{% endblock %}

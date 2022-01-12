@@ -1,0 +1,42 @@
+{% extends "AppTransporte/padre.html" %}
+ 
+{% load static %}
+
+{% block contenido2 %}
+
+<h1 class="mb-1">Choferes</h1>
+
+{% endblock %}
+
+{% block contenido %}
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chofer_List</title>
+    </head>
+    <body>
+
+        <h1>Choferes</h1>
+        <ul>
+            {% for chofer in object_list %}
+
+                <li>
+                    <p>NOMBRE: {{ chofer.nombre }} </p>
+                    <p> 
+                        <a href="{% url 'Detail' chofer.id %}">Ver</a> | 
+                        <a href="{% url 'Edit' chofer.id %}">Editar</a> | 
+                        <a href="{% url 'Delete' chofer.id %}">Borrar</a> 
+                    
+                    </p> 
+                </li>
+
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'New'  %}">Nuevo</a> | 
+
+
+    </body>
+{% endblock %}

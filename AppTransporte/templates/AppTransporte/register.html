@@ -1,0 +1,30 @@
+{% extends "AppTransporte/padre.html" %}
+ 
+{% load static %}
+
+{% block contenido2 %}
+
+<h1 class="mb-1">Choferes</h1>
+
+{% endblock %}
+
+{% block contenido %}
+
+    <body>
+
+
+        <form action="" method="POST">
+
+            {% csrf_token %}
+
+            {{form.as_p}}
+
+            <button type="submit">Registrarse</button>
+
+
+        </form>
+
+
+        
+    </body>
+{% endblock %}

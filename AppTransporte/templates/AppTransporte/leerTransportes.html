@@ -1,0 +1,25 @@
+{% extends "AppTransporte/padre.html" %}
+ 
+{% load static %}
+
+{% block contenido2 %}
+<h1 class="mb-1">!!!!Transportes de bd!!!!</h1>
+{% endblock %}
+
+{% block contenido %}
+
+    <h3>estamos buscando</h3>
+
+  
+
+      
+          {% for t in transportes %}
+
+              <li>{{t}}</li>
+
+
+          {% endfor %}
+      
+ 
+
+{% endblock %}

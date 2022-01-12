@@ -1,0 +1,34 @@
+{% extends "AppTransporte/padre.html" %}
+ 
+{% load static %}
+
+{% block contenido2 %}
+<h1 class="mb-1">!!!! BUSQUEDA DE CHOFER !!!!</h1>
+{% endblock %}
+
+{% block contenido %}
+
+    <h3>estamos buscando</h3>
+
+    {% if chofer %}
+
+      <ul>
+          {% for chofer in chofer %}
+
+          <li>{{chofer.nombre}}</li>
+          <li>{{chofer.apellido}}</li>
+          <li>{{chofer.documento}}</li>
+          <li>{{chofer.licencia}}</li>
+
+          {% endfor %}
+      </ul>
+      {% else %}
+      <p>no hay datos con esta descripcion</p>
+ 
+     {% endif %}  
+     
+     <p stayle="color: red;">{{respuesta}}</p>  
+    
+
+
+{% endblock %}

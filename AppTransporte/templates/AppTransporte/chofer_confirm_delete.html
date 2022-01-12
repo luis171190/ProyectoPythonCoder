@@ -1,0 +1,25 @@
+{% extends "AppTransporte/padre.html" %}
+ 
+{% load static %}
+
+{% block contenido2 %}
+
+<h1 class="mb-1">Choferes</h1>
+
+{% endblock %}
+
+{% block contenido %}
+
+
+    <body>
+
+        <h1>Eliminar chofer</h1>
+        <form method="post">{% csrf_token %}
+            ¿Estás seguro que deseas borrar el chofer "{{ object }}"?
+            <input type="submit" value="Submit" />
+        </form>
+
+        
+    </body>
+
+{% endblock %}

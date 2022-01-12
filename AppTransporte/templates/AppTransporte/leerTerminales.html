@@ -1,0 +1,32 @@
+{% extends "AppTransporte/padre.html" %}
+ 
+{% load static %}
+
+{% block contenido2 %}
+<h1 class="mb-1">!!!!Terminales de bd!!!!</h1>
+{% endblock %}
+
+{% block contenido %}
+
+    <h3>estamos buscando</h3>
+ 
+
+      
+          {% for t in terminales %}
+
+              <li>{{t}}</li>
+              <br> 
+              <button>
+                 <a href="{% url 'EliminarTerminal' t.nombre %}">eliminar</a>
+
+                 <a href="{% url 'EditarTerminal' t.nombre %}">editar</a>
+              </button>
+              <br>
+
+          {% endfor %}
+
+          <a href="{% url 'TerminalFormulario' %}"> AGREGAR OTRa Terminal</a> 
+      
+ 
+
+{% endblock %}

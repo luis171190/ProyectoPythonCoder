@@ -1,0 +1,29 @@
+{% extends "AppTransporte/padre.html" %}
+ 
+{% load static %}
+
+{% block contenido2 %}
+<h1 class="mb-1">!!!!PASAJEROS de bd!!!!</h1>
+{% endblock %}
+
+{% block contenido %}
+
+    <h3>estamos buscando</h3>
+      
+          {% for p in pasajeros %}
+
+              <li>Pasajero: {{p}}</li>
+              <br> 
+              <button>
+                 <a href="{% url 'EliminarPasajero' p.nombre %}">eliminar</a>
+
+                 <a href="{% url 'EditarPasajero' p.nombre %}">editar</a>
+              </button>
+              <br> 
+
+
+          {% endfor %}
+      
+          <a href="{% url 'PasajeroFormulario' %}"> AGREGAR OTRO PASAJERO</a> 
+
+{% endblock %}

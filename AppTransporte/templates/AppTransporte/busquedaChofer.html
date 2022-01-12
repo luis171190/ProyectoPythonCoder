@@ -1,0 +1,22 @@
+{% extends "AppTransporte/padre.html" %}
+ 
+{% load static %}
+
+{% block contenido2 %}
+<h1 class="mb-1">!!!! BUSQUEDA DE CHOFER !!!!</h1>
+{% endblock %}
+
+{% block contenido %}
+
+    <h3>BUSCANDO CHOFER</h3>
+    
+    <form action="/AppTransporte/buscarChofer/" method="GET">
+        
+        <input type="text" name="nombre" id=nombre>
+        
+        <input type="submit" value="BUSCAR">
+            
+    </form>      
+
+
+{% endblock %}
