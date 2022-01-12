@@ -15,11 +15,25 @@ urlpatterns = [
     path('terminalFormulario', views.terminalFormulario, name='TerminalFormulario'),
     path('login', views.login_request, name="Login"),
     path('register', views.register, name="Register"),
+    
+    
     path('chofer/list', views.ChoferList.as_view(), name='List'),
     path(r'^(?P<pk>\d+)$', views.ChoferDetalle.as_view(), name='Detail'),
+    
     path(r'^nuevo$', views.ChoferCreacion.as_view(), name='New'),
-    path(r'^editar(?P<pk>\d+)$', views.ChoferUpdate.as_view(), name='Edit'),
-    path(r'^borrar(?P<pk>\d+)$', views.ChoferDelete.as_view(), name='Delete'),
+    path(r'^editar/(?P<pk>\d+)$', views.ChoferUpdate.as_view(), name='Edit'),
+    path(r'^borrar/(?P<pk>\d+)$', views.ChoferDelete.as_view(), name='Delete'),
+    
+    
+    path('pasajero/list', views.PasajeroList.as_view(), name='List'),
+    path(r'^(?P<pk>\d+)$', views.PasajeroDetalle.as_view(), name='Detail'),
+    
+    path(r'^nuevo$', views.PasajeroCreacion.as_view(), name='New'),
+    path(r'^editar/(?P<pk>\d+)$', views.PasajeroUpdate.as_view(), name='Edit'),
+    path(r'^borrar/(?P<pk>\d+)$', views.PasajeroDelete.as_view(), name='Delete'),
+    
+    
+    
     path('busquedaChofer', views.busquedaChofer),
     path('busquedaPasajero', views.busquedaPasajero),
     path('busquedaTerminal', views.busquedaTerminal),

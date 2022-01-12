@@ -5,9 +5,13 @@ from django.shortcuts import redirect, render, HttpResponse
 from django.http import HttpResponse
 from AppTransporte.models import Chofer, Pasajero, Transporte, Terminal
 from AppTransporte.forms import ChoferFormulario, PasajeroFormulario, TransporteFormulario, TerminalFormulario, UserRegisterForm
+
+
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
+
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 def register(request):
@@ -62,33 +66,76 @@ def login_request(request):
 
 
 
-class ChoferDelete(DeleteView):
-
-      model = Chofer
-      success_url = "AppTransporte/chofer/list"
-
-class ChoferUpdate(UpdateView):
-
-      model = Chofer
-      success_url = "AppTransporte/chofer/list"
-      fields = ['nombre', 'apellido', 'numeroDeDocumento', 'numeroDeLicencia']
-
-
-class ChoferCreacion(CreateView):
-
-      model = Chofer
-      success_url = "AppTransporte/chofer/list"
-      fields = ['nombre', 'apellido', 'numeroDeDocumento', 'numeroDeLicencia']
-
-class ChoferDetalle(DetailView):
-
-      model = Chofer
-      template_name = "AppTransporte/chofer_detalle.html"
-
 class ChoferList(ListView):
+    
+    model = Chofer
+    template_name = "AppTransporte/chofer_list.html"
 
-      model = Chofer
-      template_name = "AppTransporte/chofer_list.html"
+#Detalle - SUPER Leer - Buscar!!!!!
+class ChoferDetalle(DetailView):
+    
+    model = Chofer
+    template_name = "AppTransporte/chofer_detalle.html"
+    
+#Crear elementos
+class ChoferCreacion(CreateView):
+    
+    model = Chofer
+    success_url = "../chofer/list" 
+    fields = ["nombre", "apellido", "numeroDeDocumento","numeroDeLicencia"]
+    
+#modificar!!!!!!!!!!!  
+class ChoferUpdate(UpdateView):
+    
+    model = Chofer
+    success_url = "../chofer/list"
+    fields = ["nombre", "apellido", "numeroDeDocumento","numeroDeLicencia"]
+  
+#Borrar   
+class ChoferDelete(DeleteView):
+    
+    model = Chofer
+    success_url = "../chofer/list"
+      
+
+
+
+
+
+
+class PasajeroList(ListView):
+    
+    model = Pasajero
+    template_name = "AppTransporte/pasajeros_list.html"
+
+#Detalle - SUPER Leer - Buscar!!!!!
+class PasajeroDetalle(DetailView):
+    
+    model = Pasajero
+    template_name = "AppTransporte/pasajero_detalle.html"
+    
+#Crear elementos
+class PasajeroCreacion(CreateView):
+    
+    model = Pasajero
+    success_url = "../pasajero/list"  #AppCoder/template/AppCoder/editar
+    fields = ["nombre", "apellido", "numeroDeDocumento","vacunado"]
+    
+#modificar!!!!!!!!!!!  
+class PasajeroUpdate(UpdateView):
+    
+    model = Pasajero
+    success_url = "../pasajero/list"
+    fields = ["nombre", "apellido", "numeroDeDocumento","vacunado"]
+  
+#Borrar   
+class PasajeroDelete(DeleteView):
+    
+    model = Pasajero
+    success_url = "../pasajero/list"
+
+
+
 
 
 
@@ -323,13 +370,15 @@ def editarPasajero(request, pasajero_nombre):
 
             miFormulario = PasajeroFormulario(request.POST) #aquí mellega toda la información del html
 
-            print(miFormulario)
-
-            if miFormulario.is_valid:   #Si pasó la validación de Django
+            if miFormulario.is_valid():   #Si pasó la validación de Django
 
                   informacion = miFormulario.cleaned_data
-
-                  pasajero = Pasajero (nombre=informacion['nombre'], apellido=informacion['apellido'], numeroDeDocumento=informacion['numeroDeDocumento'], vacunado=informacion['vacunado']) 
+                  
+                  pasajero.nombre = informacion["nombre"]
+                  pasajero.apellido = informacion["apellido"]
+                  pasajero.numeroDeDocumento = informacion["numeroDeDocumento"]
+                  pasajero.vacunado = informacion["vacunado"]
+                                
 
                   pasajero.save()
 
@@ -337,7 +386,7 @@ def editarPasajero(request, pasajero_nombre):
 
       else: 
 
-            miFormulario= PasajeroFormulario(initial={'nombre':pasajero.nombre, 'apellido':pasajero.apellido, 'numeroDeDocumento':pasajero.numeroDeDocumento, 'vacunado':pasajero.vacunado}) #Formulario vacio para construir el html
+            miFormulario= PasajeroFormulario(initial={"nombre":pasajero.nombre, "apellido":pasajero.apellido, "numeroDeDocumento":pasajero.numeroDeDocumento, "vacunado":pasajero.vacunado}) #Formulario vacio para construir el html
  
       return render(request, "AppTransporte/editarPasajero.html", {"miFormulario":miFormulario, "pasajero_nombre":pasajero_nombre})      
 
