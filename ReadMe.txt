@@ -25,6 +25,8 @@ Luis hizo CRUD completo de todos los modulos, ademas del login y el logut.
 Lucio hizo el registro y el editar para el usuario administrador, ademas los casos de prueba y el video
 
 
+link del video subido a youtube: https://youtu.be/GbqN_f5Lwo4
+
 
 
 
