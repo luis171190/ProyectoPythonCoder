@@ -3,16 +3,24 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, HttpResponse
 from django.http import HttpResponse
+
 from AppTransporte.models import Chofer, Pasajero, Transporte, Terminal
-from AppTransporte.forms import ChoferFormulario, PasajeroFormulario, TransporteFormulario, TerminalFormulario, UserRegisterForm
+from AppTransporte.forms import ChoferFormulario, PasajeroFormulario, TransporteFormulario, TerminalFormulario, UserRegisterForm, UserEditForm
 
 
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+#from django.urls import reverse_lazy
 
 
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, logout, authenticate
+
+from django.contrib.auth.decorators import login_required
+
+
+
 
 def register(request):
 
@@ -32,6 +40,8 @@ def register(request):
             form = UserRegisterForm()     
 
       return render(request,"AppTransporte/register.html" ,  {"form":form})
+
+
 
 def login_request(request):
 
@@ -62,6 +72,36 @@ def login_request(request):
 
       return render(request,"AppTransporte/login.html", {'form':form} )
 
+
+
+@login_required
+def editarPerfil(request):
+        
+    usuario = request.user
+    
+    if request.method == 'POST':
+        
+        miFormulario = UserEditForm(request.POST)
+        
+        if miFormulario.is_valid():
+            
+            informacion = miFormulario.cleaned_data
+            
+            usuario.email = informacion['email']
+            usuario.password1 = informacion['password1']
+            usuario.password2 = informacion['password2']
+            
+            usuario.save()
+            
+            return render(request, "AppTransporte/inicio.html")
+        
+    else:
+        
+        miFormulario = UserEditForm(initial={'email':usuario.email})
+        
+        
+    return render(request, "AppTransporte/editarPerfil.html", {"miFormulario":miFormulario, "usuario":usuario})
+
                         
 
 
@@ -81,7 +121,7 @@ class ChoferDetalle(DetailView):
 class ChoferCreacion(CreateView):
     
     model = Chofer
-    success_url = "../chofer/list" 
+    success_url = "../AppTransporte/chofer/list"
     fields = ["nombre", "apellido", "numeroDeDocumento","numeroDeLicencia"]
     
 #modificar!!!!!!!!!!!  
@@ -106,7 +146,7 @@ class ChoferDelete(DeleteView):
 class PasajeroList(ListView):
     
     model = Pasajero
-    template_name = "AppTransporte/pasajeros_list.html"
+    template_name = "AppTransporte/pasajero_list.html"
 
 #Detalle - SUPER Leer - Buscar!!!!!
 class PasajeroDetalle(DetailView):
@@ -118,7 +158,7 @@ class PasajeroDetalle(DetailView):
 class PasajeroCreacion(CreateView):
     
     model = Pasajero
-    success_url = "../pasajero/list"  #AppCoder/template/AppCoder/editar
+    success_url = "../AppTransporte/pasajero/list" 
     fields = ["nombre", "apellido", "numeroDeDocumento","vacunado"]
     
 #modificar!!!!!!!!!!!  
@@ -137,31 +177,39 @@ class PasajeroDelete(DeleteView):
 
 
 
-
-
 def choferFormulario(request):
     
-      if request.method == 'POST':
+    if request.method == 'POST':
+        
+        miFormulario = ChoferFormulario(request.POST)
+        
+        if miFormulario.is_valid():
+            
+            informacion = miFormulario.cleaned_data
+            
+            chofer = Chofer(
+                
+                nombre = informacion['nombre'],
+                apellido = informacion['apellido'],
+                numeroDeDocumento = informacion['numeroDeDocumento'],
+                numeroDeLicencia = informacion['numeroDeLicencia']     
+                
+            )
+            
+            chofer.save()
+            
+            return render(request, 'AppTransporte/inicio.html')
+        
+    else:
+        
+        miFormulario = ChoferFormulario()
+    
+    return render(request, 'AppTransporte/choferFormulario.html', {"miFormulario":miFormulario})
 
-            miFormulario = ChoferFormulario(request.POST) #aquí mellega toda la información del html
 
-            print(miFormulario)
 
-            if miFormulario.is_valid:   #Si pasó la validación de Django
 
-                  informacion = miFormulario.cleaned_data
 
-                  chofer = Chofer (nombre=informacion['nombre'], apellido=informacion['apellido'], numeroDeDocumento=informacion['numeroDeDocumento'], numeroDeLicencia=informacion['numeroDeLicencia']) 
-
-                  chofer.save()
-
-                  return render(request, "AppTransporte/inicio.html") #Vuelvo al inicio o a donde quieran
-
-      else: 
-
-            miFormulario= ChoferFormulario() #Formulario vacio para construir el html
-
-      return render(request, "AppTransporte/choferFormulario.html", {"miFormulario":miFormulario})
   
 def pasajeroFormulario(request):
         
@@ -270,24 +318,38 @@ def busquedaTransporte(request):
 
       return render(request, "AppTransporte/busquedaTransporte.html")
 
+
+
+
+
 def buscarChofer(request):
-      if request.GET["nombre"]:
-            nombre=request.GET['nombre']
-            chofer=Chofer.objects.filter(nombe__icontains=nombre)
+    if request.GET["nombre"]:
+        
+        nombre = request.GET["nombre"]
+        
+        chofer = Chofer.objects.filter(nombre__icontains=nombre)
+        
+               
+        #respuesta = f"Estoy Buscando a : {request.GET['nombre']} "
+        
+        return render(request, "AppTransporte/resultadoChofer.html", {"chofer":chofer, "nombre":nombre} )
+        
+        
+    else:
+        
+        repuesta = "Che, mandame informacion!!"
+    
+    return HttpResponse(respuesta)
 
-            return render(request, "AppTransporte/resultadoChofer.html",{"nombre":nombre, "apellido":apellido,"dni":numeroDeDocumento,"licencia":numeroDeLicencia})
 
-      else:
-            respuesta="no enviaste datos"
 
-      return HttpResponse(respuesta)   
 
 def buscarPasajero(request):
       if request.GET["nombre"]:
             nombre=request.GET['nombre']
-            pasajero=Pasajero.objects.filter(nombe__icontains=nombre)
+            pasajero=Pasajero.objects.filter(nombre__icontains=nombre)
 
-            return render(request, "AppTransporte/resultadoPasajero.html",{"nombre":nombre, "apellido":apellido,"dni":numeroDeDocumento,"vacunado":vacunado})
+            return render(request, "AppTransporte/resultadoPasajero.html",{"pasajero":pasajero,"nombre":nombre})
 
       else:
             respuesta="no enviaste datos"
@@ -316,9 +378,22 @@ def buscarTransporte(request):
       else:
             respuesta="no enviaste datos"
 
-      return HttpResponse(respuesta)        
+      return HttpResponse(respuesta)       
 
 
+
+#Armado de CRUD 
+# 1ro 
+
+
+@login_required
+def leerChoferes(request):
+    
+    choferes = Chofer.objects.all()
+    
+    dir = {"choferes":choferes} #contexto
+    
+    return render(request, "AppTransporte/leerChoferes.html", dir)
 
 
 def leerPasajeros(request):
@@ -342,6 +417,20 @@ def leerTransportes(request):
 
       return render(request, "AppTransporte/leertransportes.html",contexto)   
 
+
+
+
+#2do
+def eliminarChofer(request, chofer_nombre):
+
+      chofer=Chofer.objects.get(nombre=chofer_nombre)
+      chofer.delete()
+
+      choferes=Chofer.objects.all()
+      contexto={"choferes":choferes}
+
+      return render(request, "AppTransporte/leerChoferes.html",contexto)
+
 def eliminarPasajero(request, pasajero_nombre):
 
       pasajero=Pasajero.objects.get(nombre=pasajero_nombre)
@@ -361,6 +450,38 @@ def eliminarTerminal(request, terminal_nombre):
       contexto={"terminales":terminales}
 
       return render(request, "AppTransporte/leerTerminales.html",contexto)
+
+
+
+#3ro
+def editarChofer(request, chofer_nombre):
+
+      chofer= Chofer.objects.get(nombre=chofer_nombre)
+        
+      if request.method == 'POST':
+
+            miFormulario = ChoferFormulario(request.POST) #aquí mellega toda la información del html
+
+            if miFormulario.is_valid():   #Si pasó la validación de Django
+
+                  informacion = miFormulario.cleaned_data
+                  
+                  chofer.nombre = informacion["nombre"]
+                  chofer.apellido = informacion["apellido"]
+                  chofer.numeroDeDocumento = informacion["numeroDeDocumento"]
+                  chofer.numeroDeLicencia = informacion["numeroDeLicencia"]
+                                
+
+                  chofer.save()
+
+                  return render(request, "AppTransporte/inicio.html") #Vuelvo al inicio o a donde quieran
+
+      else: 
+
+            miFormulario= ChoferFormulario(initial={"nombre":chofer.nombre, "apellido":chofer.apellido, "numeroDeDocumento":chofer.numeroDeDocumento, "numeroDeLicencia":chofer.numeroDeLicencia}) #Formulario vacio para construir el html
+ 
+      return render(request, "AppTransporte/editarChofer.html", {"miFormulario":miFormulario, "chofer_nombre":chofer_nombre}) 
+
 
 def editarPasajero(request, pasajero_nombre):
 

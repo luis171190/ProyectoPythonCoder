@@ -8,17 +8,15 @@
 
 {% block contenido %}
 
-    <h3>estamos buscando</h3>
+    <h3>Estamos Buscando</h3>
 
     {% if chofer %}
 
       <ul>
           {% for chofer in chofer %}
 
-          <li>{{chofer.nombre}}</li>
-          <li>{{chofer.apellido}}</li>
-          <li>{{chofer.documento}}</li>
-          <li>{{chofer.licencia}}</li>
+          <li>Nombre: {{chofer.nombre}}</li>
+          <li>Apellido: {{chofer.apellido}}</li>
 
           {% endfor %}
       </ul>

@@ -18,10 +18,9 @@
               <p>NOMBRE: {{ chofer.nombre}}</p>
 
               <p>
-              <a href="{% url 'Detail' chofer.id %}">Ver más</a>
-              
-              <a href="{% url 'Edit' chofer.id %}">Editar</a>
-              <a href="{% url 'Delete' chofer.id %}">Borrar</a>
+              <a href="{% url 'Detail Chofer' chofer.id %}">Ver más</a>              
+              <a href="{% url 'Edit Chofer' chofer.id %}">Editar</a>
+              <a href="{% url 'Delete Chofer' chofer.id %}">Borrar</a>
 
             </p>
 
@@ -32,6 +31,8 @@
 
 
           </ul>
+
+          <a href="{% url 'New Chofer'  %}">Nuevo Chofer</a>
         
 
         {% endblock %}

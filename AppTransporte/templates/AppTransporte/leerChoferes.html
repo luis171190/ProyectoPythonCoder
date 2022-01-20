@@ -1,0 +1,37 @@
+{% extends "AppTransporte/padre.html" %}
+
+
+{% load static %}
+
+        {% block contenido2 %}
+            <h1 class="mb-1">Choferes de la BD</h1>
+        {% endblock %}
+
+
+        {% block contenido %}
+
+
+            
+            {% for c in choferes %}
+
+
+                <li>Chofer:   {{ c }}  </li>
+
+                <br>
+                    <a href="{% url 'EliminarChofer' c.nombre %}">Eliminar</a>
+                    <a href="{% url 'EditarChofer' c.nombre %}">Editar</a>
+                
+                <br> 
+               
+
+
+            {% endfor %}
+
+            <!-- href : jugadorFormulario -->
+            <a href="{% url 'ChoferFormulario'%}"> Agregar otro Chofer </a>
+
+
+
+         
+
+        {% endblock %}

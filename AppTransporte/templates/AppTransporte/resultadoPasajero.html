@@ -8,17 +8,15 @@
 
 {% block contenido %}
 
-    <h3>estamos buscando el: {{pasajero}}</h3>
+    <h3>Estamos Buscando....</h3>
 
     {% if pasajero %}
 
       <ul>
           {% for pasajero in pasajero %}
 
-              <li>{{pasajero.nombre}}</li>
-              <li>{{pasajero.apellido}}</li>
-              <li>{{pasajero.documento}}</li>
-              <li>{{pasajero.vacunado}}</li>
+              <li>Nombre: {{pasajero.nombre}}</li>
+              <li>Apellido: {{pasajero.apellido}}</li>
 
           {% endfor %}
       </ul>

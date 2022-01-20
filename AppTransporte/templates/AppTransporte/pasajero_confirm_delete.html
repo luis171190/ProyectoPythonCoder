@@ -4,7 +4,7 @@
 
 {% block contenido2 %}
 
-<h1 class="mb-1">Choferes</h1>
+<h1 class="mb-1">Pasajeros</h1>
 
 {% endblock %}
 
@@ -13,9 +13,9 @@
 
     <body>
 
-        <h1>Eliminar chofer</h1>
+        <h1>Eliminar pasajero....</h1>
         <form method="post">{% csrf_token %}
-            ¿Estás seguro que deseas borrar el chofer "{{ object }}"?
+            ¿Estás seguro que deseas borrar el pasajero "{{ object }}"?
             <input type="submit" value="SI" />
         </form>
 
