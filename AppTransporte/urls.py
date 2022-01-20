@@ -29,14 +29,14 @@ urlpatterns = [
     
     
     path('chofer/list', views.ChoferList.as_view(), name='List Chofer'),
-    path(r'^(?P<pk>\d+)$', views.ChoferDetalle.as_view(), name='Detail Chofer'),    
+    path(r'^vistaChofer/(?P<pk>\d+)$', views.ChoferDetalle.as_view(), name='Detail Chofer'),    
     path(r'^nuevo$Chofer', views.ChoferCreacion.as_view(), name='New Chofer'),
     path(r'^editarChofer/(?P<pk>\d+)$', views.ChoferUpdate.as_view(), name='Edit Chofer'),
     path(r'^borrarChofer/(?P<pk>\d+)$', views.ChoferDelete.as_view(), name='Delete Chofer'),
     
     
     path('pasajero/list', views.PasajeroList.as_view(), name='List Pasajero'),
-    path(r'^(?P<pk>\d+)$', views.PasajeroDetalle.as_view(), name='Detail Pasajero'),    
+    path(r'^vistaPasajero/(?P<pk>\d+)$', views.PasajeroDetalle.as_view(), name='Detail Pasajero'),     
     path(r'^nuevo$Pasajero', views.PasajeroCreacion.as_view(), name='New Pasajero'),
     path(r'^editarPasajero/(?P<pk>\d+)$', views.PasajeroUpdate.as_view(), name='Edit Pasajero'),
     path(r'^borrarPasajero/(?P<pk>\d+)$', views.PasajeroDelete.as_view(), name='Delete Pasajero'),
