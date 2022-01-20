@@ -27,10 +27,14 @@
         <nav id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><a href="{% url 'Inicio' %}">inicio</a></li>
+                <li class="sidebar-nav-item"><a href="{% url 'List Chofer' %}">Listado de Choferes</a></li>
+                <li class="sidebar-nav-item"><a href="{% url 'List Pasajero' %}">Listado de Pasajeros</a></li>
                 <li class="sidebar-nav-item"><a href="{% url 'Pasajero' %}">pasajero</a></li>
                 <li class="sidebar-nav-item"><a href="{% url 'Chofer' %}">chofer</a></li>
                 <li class="sidebar-nav-item"><a href="{% url 'Transporte' %}">transporte</a></li>
                 <li class="sidebar-nav-item"><a href="{% url 'Terminal' %}">terminal</a></li>
+                <li class="sidebar-nav-item"><a href="{% url 'Login' %}">Login</a></li>
+                <li class="sidebar-nav-item"><a href="{% url 'Logout' %}">Logout</a></li>
                 
             </ul>
         </nav>

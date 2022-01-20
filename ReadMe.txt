@@ -1,19 +1,32 @@
-Integrantes: Luis Molina
+Integrantes: 
+
+Luis Molina Reinoso
+Lucio Gabriel Albornoz
              
-Hola Nico te detallo lo que pude llegar a hacer.
+Hola Nico te detallo todo del sistema
 
-admin/     //User: admin pass:admin123456
+- Los datos para ingresar como administrador es:
 
-CRUD para los modelos
-"Pasajeros"
-"Chofer"
+        admin/     //User: admin pass:admin123456
 
-No pude completar el alta, ya que no llegue con el tiempo y por el momento solo hace la parte de enlistar todos los elementos de la BD,
-el "ver mas" para el detalle de cada registro creado, y el editar y eliminar.
+- Se hizo CRUD con vistas "CBV" para los modelos.
 
-Se agrego el Login, pero me falta el logout
+    "Pasajeros"
+    "Chofer"
 
-Si tengo los 7 dias que ofrecen para hacer las correciones, seria lo ideal asi pueda terminar el proyecto y acomodar todo, se me acumulo
-todo y no llegue
+- Se creo tanto el Login como el Logout correspondiente, ademas del registrar un nuevo usuario y editar dicho usuario.
+
+- Se agrego "Decoradores" para el "leerChoferes" y tambien para el "editarPerfil".
+
+Paso a detallar como nos distribuimos para el trabajo.
+
+Luis hizo CRUD completo de todos los modulos, ademas del login y el logut.
+
+Lucio hizo el registro y el editar para el usuario administrador, ademas los casos de prueba y el video
+
+
+
+
+
 
 
